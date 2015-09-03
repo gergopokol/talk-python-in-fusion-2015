@@ -35,55 +35,47 @@ def plot_sinc(ax):
     ax.set_ylabel('amplitude [m]')
 
 
-if plt.fignum_exists(1):
-    plt.figure(1).clf()
+def make_bw_friendly(ax):
+    """ Make the axis understandable on black and white print """
+    from itertools import cycle
 
-fig, axes = plt.subplots(2, num=1)
-plot_sin(axes[0])
-plot_sinc(axes[1])
+    linewidth = 2
+    color = 'black'
+    styles = ['-', '--', '-.', '.']
 
-plt.tight_layout()
-plt.draw()
-
-# Let's reuse the plot_sinc function on a new figure
-# fig2 = plt.figure(2)
-# fig2.clf()
-# ax = fig2.add_subplot(111)
-# plot_sinc(ax)
-# plt.tight_layout()
-# plt.draw()
+    for line, style in zip(ax.lines, cycle(styles)):
+        line.set_linewidth(linewidth)
+        line.set_color(color)
+        line.set_linestyle(style)
 
 
-# def make_bw_friendly(ax):
-#     """ Make the axis understandable on black and white print """
-#     from itertools import cycle
-#
-#     linewidth = 2
-#     color = 'black'
-#     styles = ['-', '--', '-.', '.']
-#
-#     for line, style in zip(ax.lines, cycle(styles)):
-#         line.set_linewidth(linewidth)
-#         line.set_color(color)
-#         line.set_linestyle(style)
+def highlight_x(ax, limits, **kwargs):
+    """ Highlight parts of the plot on the x-axis between range """
+    ymin, ymax = limits
+
+    # save the arguments internally
+    _kwargs = {}
+    _kwargs.update(kwargs)
+
+    # set default opacity for the overlay
+    if 'alpha' not in _kwargs:
+        _kwargs['alpha'] = 0.5
+
+    ax.axvspan(ymin, ymax, **_kwargs)
 
 
-# def highlight_y(ax, limits, **kwargs):
-#     """ Highlight parts of the plot on the x-axis between range """
-#     xmin, xmax = limits
-#
-#     # save the arguments internally
-#     _kwargs = {}
-#     _kwargs.update(kwargs)
-#
-#     # set default opacity for the overlay
-#     if 'alpha' not in _kwargs:
-#         _kwargs['alpha'] = 0.5
-#
-#     ax.axhspan(xmin, xmax, **_kwargs)
+if __name__ == '__main__':
+    if plt.fignum_exists(1):
+        plt.figure(1).clf()
 
+    fig, axes = plt.subplots(2, num=1)
+    plot_sin(axes[0])
+    plot_sinc(axes[1])
 
-# highlight_y(axes[1], (0.2, 0.5), color='red')
-# make_bw_friendly(axes[0])
+    plt.tight_layout()
+    plt.draw()
 
-plt.show()
+    highlight_x(axes[1], (0.2, 0.5), color='red')
+    make_bw_friendly(axes[0])
+
+    plt.show()
