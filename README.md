@@ -12,6 +12,15 @@ The following modules need to be installed:
 [1] http://www.mdsplus.org/index.php/Documentation:Users:MDSobjects:Python
 [2] http://xray.readthedocs.org
 
+Presentation
+------------
+
+The scripts were presented in the following order
+1. demo_working_environment.py
+2. demo_working_with_mds.py
+3. demo_mds_structured.py
+4. demo_dataset.py
+
 Note about MDSplus
 ------------------
 
