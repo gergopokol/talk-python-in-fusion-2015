@@ -25,7 +25,7 @@ def plot_profile(ax, da, time):
     ax.legend(loc='best')
 
 
-ds = xray.open_dataset('pr98_jet_19649.nc')
+ds = xray.open_dataset('dataset/pr98_jet_19649.nc')
 times = [45, 47]
 
 # Prepare the figure and the axes
